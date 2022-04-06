@@ -1,4 +1,9 @@
-word_guess= "Mississippi"
+import random
+f = open("C:\Repository\Word Guessing Game\words_alpha.txt","r")
+word_from_file = f.readlines()
+value = random.randint(0, len(word_from_file))
+word_guess = word_from_file.pop(value)
+f.close()
 word_split= word_guess.split()
 guess_list = []
 blank_word = []
@@ -11,18 +16,19 @@ for i in range(len(word_guess)):
 while (guesses_remain > 0 and answer):
     print(blank_word)
     guess = str(input("Guess a letter in the word or the word itself?"))
-
-    for i in range(len(guess_list)):
-        if (guess == guess_list[i]):
-            guesses_remain -=1
-            print("You have already guesses that. You have " +str(guesses_remain) + " remaining. You have already guesses " + str(guess_list))
+    
     try:    
+        for i in range(len(guess_list)):
+            if (guess == guess_list[i]):
+                guesses_remain -=1
+                raise ValueError
+
         if (len(guess) != len(word_guess) and len(guess) != 1 ):
             guess_list.append(guess)
             guesses_remain -=1
             raise ValueError
     except ValueError:
-        print("That is not a valid entry")
+        print("That is not a valid entry You have "+ str(guesses_remain) + " guesses remaining. You have already guesses " + str(guess_list))
     
     if(len(guess) == 1):
         if(word_guess.find(guess)== -1):
@@ -40,7 +46,7 @@ while (guesses_remain > 0 and answer):
     if(len(guess) == len(word_guess)):
         if (guess == word_guess):
             print("Congratgulation! You guessed the word correctly!")
-            answer_valid = False
+            answer = False
         else:
             guess_list.append(guess)
             guesses_remain -= 1
