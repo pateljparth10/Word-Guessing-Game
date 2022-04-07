@@ -9,7 +9,13 @@ losses = 0
 playing = True
 valid_word = False
 
+menu = open("C:\Repository\Word Guessing Game\Menu.txt","r")
+menu_items = menu.readlines()
+menu.close()
+
+
 while playing == True:
+    print(f"{menu_items}")
     
     while valid_word == False:
         f = open("C:\Repository\Word Guessing Game\words_alpha.txt","r")
@@ -27,6 +33,8 @@ while playing == True:
     
     while (guesses_remain > 0 and answer):
         print(blank_word)
+        count_of_guesses = len(guess_list)
+        print(f"Number of Guesses: {count_of_guesses}")
         guess = str(input("Guess a letter in the word or the word itself?"))
         
         try:    
@@ -45,7 +53,7 @@ while playing == True:
             if(word_guess.find(guess)== -1):
                 guess_list.append(guess)
                 guesses_remain -=1
-                print(guess + " was not in the word. You have " + str(guesses_remain) + " Try again!")
+                print(guess + " was not in the word. You have " + str(guesses_remain) + " reamining. Try again!")
             else:
                 guess_list.append(guess)
                 for position,letter in enumerate(word_guess):
@@ -64,6 +72,7 @@ while playing == True:
                 print(guess + " was not correct. You have " +str(guesses_remain)+ " remaining. Try again!")
 
     losses +=1
+    print("GAME OVER! YOU LOSE!")
     print("You have won " + str(wins)+ " games and lost "+ str(losses)+ " games.")
     try_again = str(input("Do you want to play again? Yes or No?"))
     another_game = True

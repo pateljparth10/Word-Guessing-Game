@@ -1,0 +1,1 @@
+You are playing a Word Guessing Game! To win you must guess the correct word. You can guess letters or the whole word. Good Luck!
